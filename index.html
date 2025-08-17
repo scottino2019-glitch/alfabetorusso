@@ -8,39 +8,63 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&display=swap');
         .russian-font { font-family: 'Noto Sans', sans-serif; }
-        .card-flip {
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
+        .character-card {
+            background: linear-gradient(135deg, #ffffff 0%, #fefefe 100%);
+            border: 2px solid #e5e7eb;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            min-height: 180px;
         }
-        .card-flip.flipped {
-            transform: rotateY(180deg);
+        .character-card:hover {
+            border-color: #dc2626;
+            box-shadow: 0 8px 30px rgba(220, 38, 38, 0.15);
+            transform: translateY(-3px);
         }
-        .card-front, .card-back {
-            backface-visibility: hidden;
-            position: absolute;
-            width: 100%;
-            height: 100%;
+        .pronunciation-badge {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 14px;
         }
-        .card-back {
-            transform: rotateY(180deg);
+        .type-badge {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #92400e;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+        }
+        .meaning-badge {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            border: 1px solid #d1d5db;
+            color: #374151;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-red-100 to-blue-100 min-h-screen russian-font">
+<body class="bg-gradient-to-br from-red-50 to-yellow-50 min-h-screen russian-font">
     <div class="container mx-auto px-4 py-8">
         <!-- Header -->
         <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-red-800 mb-2">Изучаем русский</h1>
-            <p class="text-lg text-gray-700">Impara l'Alfabeto Russo</p>
+            <h1 class="text-4xl font-bold text-red-800 mb-2">Изучаем русский язык</h1>
+            <p class="text-lg text-gray-700">Impara il Russo</p>
+            <div class="mt-2 text-sm text-gray-600">
+                🇷🇺 Alfabeto Cirillico - Кириллица
+            </div>
         </header>
 
         <!-- Navigation -->
         <nav class="flex justify-center mb-8">
-            <div class="bg-white rounded-full p-2 shadow-lg">
-                <button id="studyBtn" class="px-6 py-3 rounded-full bg-red-600 text-white font-medium transition-all">
+            <div class="bg-white rounded-2xl p-3 shadow-xl border border-gray-200">
+                <button id="studyBtn" class="px-8 py-4 rounded-xl bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
                     📚 Studio
                 </button>
-                <button id="practiceBtn" class="px-6 py-3 rounded-full text-red-600 font-medium transition-all hover:bg-red-50">
+                <button id="practiceBtn" class="px-8 py-4 rounded-xl text-red-600 font-semibold transition-all duration-300 hover:bg-red-50 hover:text-red-700">
                     🎯 Esercizi
                 </button>
             </div>
@@ -48,17 +72,14 @@
 
         <!-- Study Section -->
         <div id="studySection" class="space-y-8">
-            <!-- Script Type Selector -->
+            <!-- Content Type Selector -->
             <div class="flex justify-center mb-6">
-                <div class="bg-white rounded-lg p-2 shadow-md flex flex-wrap gap-1">
-                    <button id="consonantsBtn" class="px-4 py-2 rounded-md bg-red-500 text-white font-medium text-sm">
-                        Согласные Consonanti
+                <div class="bg-white rounded-2xl p-3 shadow-lg border border-gray-200 flex flex-wrap gap-2">
+                    <button id="lettersBtn" class="px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                        Буквы Lettere
                     </button>
-                    <button id="vowelsBtn" class="px-4 py-2 rounded-md text-red-500 font-medium hover:bg-red-50 text-sm">
-                        Гласные Vocali
-                    </button>
-                    <button id="syllablesBtn" class="px-4 py-2 rounded-md text-red-500 font-medium hover:bg-red-50 text-sm">
-                        Слоги Sillabe
+                    <button id="wordsBtn" class="px-6 py-3 rounded-xl text-red-600 font-semibold hover:bg-red-50 text-sm transition-all duration-300">
+                        Слова Parole
                     </button>
                 </div>
             </div>
@@ -66,23 +87,23 @@
             <!-- Display Mode Selector -->
             <div class="flex justify-center mb-6">
                 <div class="bg-white rounded-lg p-2 shadow-md">
-                    <button id="simpleBtn" class="px-4 py-2 rounded-md bg-blue-500 text-white font-medium">
+                    <button id="simpleBtn" class="px-4 py-2 rounded-md bg-yellow-500 text-white font-medium">
                         Semplice
                     </button>
-                    <button id="detailedBtn" class="px-4 py-2 rounded-md text-blue-500 font-medium hover:bg-blue-50">
+                    <button id="detailedBtn" class="px-4 py-2 rounded-md text-yellow-600 font-medium hover:bg-yellow-50">
                         Dettagliato
                     </button>
                 </div>
             </div>
 
             <!-- Info -->
-            <div class="text-center mb-6">
-                <p id="scriptInfo" class="text-lg text-gray-600">Согласные - Consonanti dell'alfabeto cirillico</p>
-                <p id="displayInfo" class="text-sm text-gray-500 mt-2">Visualizzazione semplice</p>
+            <div class="text-center mb-8">
+                <p id="contentInfo" class="text-xl text-gray-700 font-medium">Буквы - Lettere dell'alfabeto cirillico</p>
+                <p id="displayInfo" class="text-sm text-gray-500 mt-2">Visualizzazione semplice con pronuncia</p>
             </div>
 
             <!-- Character Grid -->
-            <div id="characterGrid" class="grid grid-cols-4 md:grid-cols-8 gap-4 max-w-6xl mx-auto">
+            <div id="characterGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 max-w-7xl mx-auto">
                 <!-- Characters will be populated by JavaScript -->
             </div>
         </div>
@@ -93,61 +114,55 @@
                 <!-- Practice Mode Selector -->
                 <div class="flex justify-center mb-6">
                     <div class="bg-white rounded-lg p-2 shadow-md flex flex-wrap gap-1">
-                        <button id="recognitionBtn" class="px-3 py-2 rounded-md bg-blue-500 text-white font-medium text-sm">
+                        <button id="recognitionBtn" class="px-3 py-2 rounded-md bg-yellow-500 text-white font-medium text-sm">
                             🔍 Riconoscimento
                         </button>
-                        <button id="writingBtn" class="px-3 py-2 rounded-md text-blue-500 font-medium hover:bg-blue-50 text-sm">
+                        <button id="writingBtn" class="px-3 py-2 rounded-md text-yellow-600 font-medium hover:bg-yellow-50 text-sm">
                             ✍️ Scrittura
                         </button>
-                        <button id="casesBtn" class="px-3 py-2 rounded-md text-blue-500 font-medium hover:bg-blue-50 text-sm">
-                            🔤 Maiuscole
-                        </button>
-                        <button id="readingBtn" class="px-3 py-2 rounded-md text-blue-500 font-medium hover:bg-blue-50 text-sm">
-                            📖 Lettura
+                        <button id="meaningBtn" class="px-3 py-2 rounded-md text-yellow-600 font-medium hover:bg-yellow-50 text-sm">
+                            📖 Significati
                         </button>
                     </div>
                 </div>
 
-                <!-- Script Selector for Practice -->
+                <!-- Content Type Selector for Practice -->
                 <div class="flex justify-center mb-6">
                     <div class="bg-white rounded-lg p-2 shadow-md flex flex-wrap gap-1">
-                        <button id="practiceConsonantsBtn" class="px-3 py-2 rounded-md bg-red-500 text-white font-medium text-sm">
-                            Согласные
+                        <button id="practiceLettersBtn" class="px-3 py-2 rounded-md bg-red-500 text-white font-medium text-sm">
+                            Буквы
                         </button>
-                        <button id="practiceVowelsBtn" class="px-3 py-2 rounded-md text-red-500 font-medium hover:bg-red-50 text-sm">
-                            Гласные
-                        </button>
-                        <button id="practiceSyllablesBtn" class="px-3 py-2 rounded-md text-red-500 font-medium hover:bg-red-50 text-sm">
-                            Слоги
+                        <button id="practiceWordsBtn" class="px-3 py-2 rounded-md text-red-500 font-medium hover:bg-red-50 text-sm">
+                            Слова
                         </button>
                     </div>
                 </div>
 
                 <!-- Practice Card -->
                 <div id="practiceCard" class="bg-white rounded-xl shadow-xl p-8 text-center">
-                    <div class="mb-6">
-                        <div id="questionText" class="text-6xl mb-4 russian-font">А</div>
-                        <div id="questionPrompt" class="text-lg text-gray-600">Come si pronuncia questa lettera?</div>
+                    <div class="mb-8">
+                        <div id="questionText" class="text-7xl mb-6 russian-font font-bold text-gray-800">А</div>
+                        <div id="questionPrompt" class="text-lg text-gray-600 font-medium">Come si pronuncia questa lettera?</div>
                     </div>
 
                     <!-- Answer Options -->
-                    <div id="answerOptions" class="grid grid-cols-2 gap-4 mb-6">
+                    <div id="answerOptions" class="grid grid-cols-2 gap-4 mb-8">
                         <!-- Options will be populated by JavaScript -->
                     </div>
 
                     <!-- Writing Input -->
-                    <div id="writingInput" class="hidden mb-6">
-                        <input type="text" id="writingAnswer" class="w-full p-4 text-center text-2xl border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none" placeholder="Scrivi la traslitterazione...">
+                    <div id="writingInput" class="hidden mb-8">
+                        <input type="text" id="writingAnswer" class="w-full p-4 text-center text-2xl border-2 border-gray-300 rounded-lg focus:border-yellow-500 focus:outline-none" placeholder="Scrivi la traslitterazione...">
                     </div>
 
                     <!-- Feedback -->
-                    <div id="feedback" class="hidden mb-6 p-4 rounded-lg">
+                    <div id="feedback" class="hidden mb-8 p-4 rounded-lg">
                         <div id="feedbackText" class="text-lg font-medium"></div>
                     </div>
 
                     <!-- Controls -->
                     <div class="flex justify-center space-x-4">
-                        <button id="nextBtn" class="px-6 py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors">
+                        <button id="nextBtn" class="px-6 py-3 bg-yellow-500 text-white rounded-lg font-medium hover:bg-yellow-600 transition-colors">
                             Prossimo →
                         </button>
                         <button id="checkBtn" class="hidden px-6 py-3 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 transition-colors">
@@ -156,12 +171,12 @@
                     </div>
 
                     <!-- Score and Progress -->
-                    <div class="mt-6 space-y-2">
+                    <div class="mt-8 space-y-2">
                         <div class="text-sm text-gray-600">
                             Punteggio: <span id="score">0</span>/<span id="total">0</span>
                         </div>
                         <div class="text-xs text-gray-500">
-                            <span id="exerciseInfo">Consonanti: 21 lettere disponibili</span>
+                            <span id="exerciseInfo">Lettere: 33 caratteri disponibili</span>
                         </div>
                     </div>
                 </div>
@@ -170,73 +185,76 @@
     </div>
 
     <script>
-        // Russian alphabet data
-        const consonants = {
-            'Б': { lower: 'б', transliteration: 'b', sound: 'b come in "bambino"' },
-            'В': { lower: 'в', transliteration: 'v', sound: 'v come in "vino"' },
-            'Г': { lower: 'г', transliteration: 'g', sound: 'g come in "gatto"' },
-            'Д': { lower: 'д', transliteration: 'd', sound: 'd come in "dado"' },
-            'Ж': { lower: 'ж', transliteration: 'zh', sound: 'j come in "jour" (francese)' },
-            'З': { lower: 'з', transliteration: 'z', sound: 'z come in "zero"' },
-            'К': { lower: 'к', transliteration: 'k', sound: 'k come in "casa"' },
-            'Л': { lower: 'л', transliteration: 'l', sound: 'l come in "luna"' },
-            'М': { lower: 'м', transliteration: 'm', sound: 'm come in "mamma"' },
-            'Н': { lower: 'н', transliteration: 'n', sound: 'n come in "naso"' },
-            'П': { lower: 'п', transliteration: 'p', sound: 'p come in "papà"' },
-            'Р': { lower: 'р', transliteration: 'r', sound: 'r vibrante' },
-            'С': { lower: 'с', transliteration: 's', sound: 's come in "sole"' },
-            'Т': { lower: 'т', transliteration: 't', sound: 't come in "tavolo"' },
-            'Ф': { lower: 'ф', transliteration: 'f', sound: 'f come in "faro"' },
-            'Х': { lower: 'х', transliteration: 'kh', sound: 'ch aspirata tedesca' },
-            'Ц': { lower: 'ц', transliteration: 'ts', sound: 'ts come in "pizza"' },
-            'Ч': { lower: 'ч', transliteration: 'ch', sound: 'c come in "ciao"' },
-            'Ш': { lower: 'ш', transliteration: 'sh', sound: 'sc come in "scienza"' },
-            'Щ': { lower: 'щ', transliteration: 'shch', sound: 'sc lunga e morbida' },
-            'Й': { lower: 'й', transliteration: 'y', sound: 'i breve come in "mai"' }
+        // Russian Cyrillic alphabet data
+        const letters = {
+            'А': { transliteration: 'a', pronunciation: 'a', type: 'vowel' },
+            'Б': { transliteration: 'b', pronunciation: 'be', type: 'consonant' },
+            'В': { transliteration: 'v', pronunciation: 've', type: 'consonant' },
+            'Г': { transliteration: 'g', pronunciation: 'ghe', type: 'consonant' },
+            'Д': { transliteration: 'd', pronunciation: 'de', type: 'consonant' },
+            'Е': { transliteration: 'e', pronunciation: 'ye', type: 'vowel' },
+            'Ё': { transliteration: 'yo', pronunciation: 'yo', type: 'vowel' },
+            'Ж': { transliteration: 'zh', pronunciation: 'zhe', type: 'consonant' },
+            'З': { transliteration: 'z', pronunciation: 'ze', type: 'consonant' },
+            'И': { transliteration: 'i', pronunciation: 'i', type: 'vowel' },
+            'Й': { transliteration: 'y', pronunciation: 'i kratkoye', type: 'consonant' },
+            'К': { transliteration: 'k', pronunciation: 'ka', type: 'consonant' },
+            'Л': { transliteration: 'l', pronunciation: 'el', type: 'consonant' },
+            'М': { transliteration: 'm', pronunciation: 'em', type: 'consonant' },
+            'Н': { transliteration: 'n', pronunciation: 'en', type: 'consonant' },
+            'О': { transliteration: 'o', pronunciation: 'o', type: 'vowel' },
+            'П': { transliteration: 'p', pronunciation: 'pe', type: 'consonant' },
+            'Р': { transliteration: 'r', pronunciation: 'er', type: 'consonant' },
+            'С': { transliteration: 's', pronunciation: 'es', type: 'consonant' },
+            'Т': { transliteration: 't', pronunciation: 'te', type: 'consonant' },
+            'У': { transliteration: 'u', pronunciation: 'u', type: 'vowel' },
+            'Ф': { transliteration: 'f', pronunciation: 'ef', type: 'consonant' },
+            'Х': { transliteration: 'kh', pronunciation: 'kha', type: 'consonant' },
+            'Ц': { transliteration: 'ts', pronunciation: 'tse', type: 'consonant' },
+            'Ч': { transliteration: 'ch', pronunciation: 'che', type: 'consonant' },
+            'Ш': { transliteration: 'sh', pronunciation: 'sha', type: 'consonant' },
+            'Щ': { transliteration: 'shch', pronunciation: 'shcha', type: 'consonant' },
+            'Ъ': { transliteration: '"', pronunciation: 'tvyordiy znak', type: 'sign' },
+            'Ы': { transliteration: 'y', pronunciation: 'yery', type: 'vowel' },
+            'Ь': { transliteration: "'", pronunciation: 'myagkiy znak', type: 'sign' },
+            'Э': { transliteration: 'e', pronunciation: 'e', type: 'vowel' },
+            'Ю': { transliteration: 'yu', pronunciation: 'yu', type: 'vowel' },
+            'Я': { transliteration: 'ya', pronunciation: 'ya', type: 'vowel' }
         };
 
-        const vowels = {
-            'А': { lower: 'а', transliteration: 'a', sound: 'a come in "casa"' },
-            'Е': { lower: 'е', transliteration: 'ye/e', sound: 'ye come in "yes" o e' },
-            'Ё': { lower: 'ё', transliteration: 'yo', sound: 'yo come in "yoga"' },
-            'И': { lower: 'и', transliteration: 'i', sound: 'i come in "vino"' },
-            'О': { lower: 'о', transliteration: 'o', sound: 'o come in "sole"' },
-            'У': { lower: 'у', transliteration: 'u', sound: 'u come in "luna"' },
-            'Ы': { lower: 'ы', transliteration: 'y', sound: 'i gutturale (difficile)' },
-            'Э': { lower: 'э', transliteration: 'e', sound: 'e come in "bene"' },
-            'Ю': { lower: 'ю', transliteration: 'yu', sound: 'yu come in "yugo"' },
-            'Я': { lower: 'я', transliteration: 'ya', sound: 'ya come in "yacht"' }
-        };
-
-        const syllables = {
-            'БА': { transliteration: 'ba', components: 'Б + А' },
-            'ВО': { transliteration: 'vo', components: 'В + О' },
-            'ГУ': { transliteration: 'gu', components: 'Г + У' },
-            'ДЕ': { transliteration: 'de', components: 'Д + Е' },
-            'ЖИ': { transliteration: 'zhi', components: 'Ж + И' },
-            'ЗА': { transliteration: 'za', components: 'З + А' },
-            'КО': { transliteration: 'ko', components: 'К + О' },
-            'ЛУ': { transliteration: 'lu', components: 'Л + У' },
-            'МА': { transliteration: 'ma', components: 'М + А' },
-            'НО': { transliteration: 'no', components: 'Н + О' },
-            'ПА': { transliteration: 'pa', components: 'П + А' },
-            'РУ': { transliteration: 'ru', components: 'Р + У' },
-            'СО': { transliteration: 'so', components: 'С + О' },
-            'ТА': { transliteration: 'ta', components: 'Т + А' },
-            'ФУ': { transliteration: 'fu', components: 'Ф + У' },
-            'ХА': { transliteration: 'kha', components: 'Х + А' },
-            'ЦЕ': { transliteration: 'tse', components: 'Ц + Е' },
-            'ЧИ': { transliteration: 'chi', components: 'Ч + И' },
-            'ШО': { transliteration: 'sho', components: 'Ш + О' },
-            'ЩА': { transliteration: 'shcha', components: 'Щ + А' }
+        const words = {
+            'мама': { transliteration: 'mama', meaning: 'mamma', category: 'family' },
+            'папа': { transliteration: 'papa', meaning: 'papà', category: 'family' },
+            'дом': { transliteration: 'dom', meaning: 'casa', category: 'places' },
+            'вода': { transliteration: 'voda', meaning: 'acqua', category: 'nature' },
+            'хлеб': { transliteration: 'khleb', meaning: 'pane', category: 'food' },
+            'молоко': { transliteration: 'moloko', meaning: 'latte', category: 'food' },
+            'собака': { transliteration: 'sobaka', meaning: 'cane', category: 'animals' },
+            'кошка': { transliteration: 'koshka', meaning: 'gatto', category: 'animals' },
+            'книга': { transliteration: 'kniga', meaning: 'libro', category: 'objects' },
+            'стол': { transliteration: 'stol', meaning: 'tavolo', category: 'objects' },
+            'окно': { transliteration: 'okno', meaning: 'finestra', category: 'objects' },
+            'дверь': { transliteration: 'dver', meaning: 'porta', category: 'objects' },
+            'солнце': { transliteration: 'solntse', meaning: 'sole', category: 'nature' },
+            'луна': { transliteration: 'luna', meaning: 'luna', category: 'nature' },
+            'звезда': { transliteration: 'zvezda', meaning: 'stella', category: 'nature' },
+            'море': { transliteration: 'more', meaning: 'mare', category: 'nature' },
+            'лес': { transliteration: 'les', meaning: 'foresta', category: 'nature' },
+            'цветок': { transliteration: 'tsvetok', meaning: 'fiore', category: 'nature' },
+            'друг': { transliteration: 'drug', meaning: 'amico', category: 'people' },
+            'школа': { transliteration: 'shkola', meaning: 'scuola', category: 'places' },
+            'работа': { transliteration: 'rabota', meaning: 'lavoro', category: 'activities' },
+            'время': { transliteration: 'vremya', meaning: 'tempo', category: 'abstract' },
+            'жизнь': { transliteration: 'zhizn', meaning: 'vita', category: 'abstract' },
+            'любовь': { transliteration: 'lyubov', meaning: 'amore', category: 'abstract' }
         };
 
         // State
-        let currentScript = 'consonants';
+        let currentContent = 'letters';
         let currentMode = 'study';
         let displayMode = 'simple';
         let practiceMode = 'recognition';
-        let practiceScript = 'consonants';
+        let practiceContent = 'letters';
         let currentQuestion = null;
         let score = 0;
         let total = 0;
@@ -246,21 +264,18 @@
         const practiceBtn = document.getElementById('practiceBtn');
         const studySection = document.getElementById('studySection');
         const practiceSection = document.getElementById('practiceSection');
-        const consonantsBtn = document.getElementById('consonantsBtn');
-        const vowelsBtn = document.getElementById('vowelsBtn');
-        const syllablesBtn = document.getElementById('syllablesBtn');
+        const lettersBtn = document.getElementById('lettersBtn');
+        const wordsBtn = document.getElementById('wordsBtn');
         const simpleBtn = document.getElementById('simpleBtn');
         const detailedBtn = document.getElementById('detailedBtn');
-        const scriptInfo = document.getElementById('scriptInfo');
+        const contentInfo = document.getElementById('contentInfo');
         const displayInfo = document.getElementById('displayInfo');
         const characterGrid = document.getElementById('characterGrid');
         const recognitionBtn = document.getElementById('recognitionBtn');
         const writingBtn = document.getElementById('writingBtn');
-        const casesBtn = document.getElementById('casesBtn');
-        const readingBtn = document.getElementById('readingBtn');
-        const practiceConsonantsBtn = document.getElementById('practiceConsonantsBtn');
-        const practiceVowelsBtn = document.getElementById('practiceVowelsBtn');
-        const practiceSyllablesBtn = document.getElementById('practiceSyllablesBtn');
+        const meaningBtn = document.getElementById('meaningBtn');
+        const practiceLettersBtn = document.getElementById('practiceLettersBtn');
+        const practiceWordsBtn = document.getElementById('practiceWordsBtn');
         const practiceCard = document.getElementById('practiceCard');
         const questionText = document.getElementById('questionText');
         const questionPrompt = document.getElementById('questionPrompt');
@@ -278,18 +293,15 @@
         // Event listeners
         studyBtn.addEventListener('click', () => switchMode('study'));
         practiceBtn.addEventListener('click', () => switchMode('practice'));
-        consonantsBtn.addEventListener('click', () => switchScript('consonants'));
-        vowelsBtn.addEventListener('click', () => switchScript('vowels'));
-        syllablesBtn.addEventListener('click', () => switchScript('syllables'));
+        lettersBtn.addEventListener('click', () => switchContent('letters'));
+        wordsBtn.addEventListener('click', () => switchContent('words'));
         simpleBtn.addEventListener('click', () => switchDisplayMode('simple'));
         detailedBtn.addEventListener('click', () => switchDisplayMode('detailed'));
         recognitionBtn.addEventListener('click', () => switchPracticeMode('recognition'));
         writingBtn.addEventListener('click', () => switchPracticeMode('writing'));
-        casesBtn.addEventListener('click', () => switchPracticeMode('cases'));
-        readingBtn.addEventListener('click', () => switchPracticeMode('reading'));
-        practiceConsonantsBtn.addEventListener('click', () => switchPracticeScript('consonants'));
-        practiceVowelsBtn.addEventListener('click', () => switchPracticeScript('vowels'));
-        practiceSyllablesBtn.addEventListener('click', () => switchPracticeScript('syllables'));
+        meaningBtn.addEventListener('click', () => switchPracticeMode('meaning'));
+        practiceLettersBtn.addEventListener('click', () => switchPracticeContent('letters'));
+        practiceWordsBtn.addEventListener('click', () => switchPracticeContent('words'));
         nextBtn.addEventListener('click', nextQuestion);
         checkBtn.addEventListener('click', checkWritingAnswer);
         writingAnswer.addEventListener('keypress', (e) => {
@@ -300,36 +312,32 @@
         function switchMode(mode) {
             currentMode = mode;
             if (mode === 'study') {
-                studyBtn.className = 'px-6 py-3 rounded-full bg-red-600 text-white font-medium transition-all';
-                practiceBtn.className = 'px-6 py-3 rounded-full text-red-600 font-medium transition-all hover:bg-red-50';
+                studyBtn.className = 'px-8 py-4 rounded-xl bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105';
+                practiceBtn.className = 'px-8 py-4 rounded-xl text-red-600 font-semibold transition-all duration-300 hover:bg-red-50 hover:text-red-700';
                 studySection.classList.remove('hidden');
                 practiceSection.classList.add('hidden');
                 renderCharacterGrid();
             } else {
-                practiceBtn.className = 'px-6 py-3 rounded-full bg-red-600 text-white font-medium transition-all';
-                studyBtn.className = 'px-6 py-3 rounded-full text-red-600 font-medium transition-all hover:bg-red-50';
+                practiceBtn.className = 'px-8 py-4 rounded-xl bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105';
+                studyBtn.className = 'px-8 py-4 rounded-xl text-red-600 font-semibold transition-all duration-300 hover:bg-red-50 hover:text-red-700';
                 studySection.classList.add('hidden');
                 practiceSection.classList.remove('hidden');
                 startPractice();
             }
         }
 
-        function switchScript(script) {
-            currentScript = script;
+        function switchContent(content) {
+            currentContent = content;
             // Reset buttons
-            consonantsBtn.className = 'px-4 py-2 rounded-md text-red-500 font-medium hover:bg-red-50 text-sm';
-            vowelsBtn.className = 'px-4 py-2 rounded-md text-red-500 font-medium hover:bg-red-50 text-sm';
-            syllablesBtn.className = 'px-4 py-2 rounded-md text-red-500 font-medium hover:bg-red-50 text-sm';
+            lettersBtn.className = 'px-6 py-3 rounded-xl text-red-600 font-semibold hover:bg-red-50 text-sm transition-all duration-300';
+            wordsBtn.className = 'px-6 py-3 rounded-xl text-red-600 font-semibold hover:bg-red-50 text-sm transition-all duration-300';
             
-            if (script === 'consonants') {
-                consonantsBtn.className = 'px-4 py-2 rounded-md bg-red-500 text-white font-medium text-sm';
-                scriptInfo.textContent = 'Согласные - Consonanti dell\'alfabeto cirillico';
-            } else if (script === 'vowels') {
-                vowelsBtn.className = 'px-4 py-2 rounded-md bg-red-500 text-white font-medium text-sm';
-                scriptInfo.textContent = 'Гласные - Vocali dell\'alfabeto cirillico';
-            } else if (script === 'syllables') {
-                syllablesBtn.className = 'px-4 py-2 rounded-md bg-red-500 text-white font-medium text-sm';
-                scriptInfo.textContent = 'Слоги - Sillabe per praticare la lettura';
+            if (content === 'letters') {
+                lettersBtn.className = 'px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105';
+                contentInfo.textContent = 'Буквы - Lettere dell\'alfabeto cirillico';
+            } else if (content === 'words') {
+                wordsBtn.className = 'px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105';
+                contentInfo.textContent = 'Слова - Parole comuni russe';
             }
             renderCharacterGrid();
         }
@@ -337,13 +345,13 @@
         function switchDisplayMode(mode) {
             displayMode = mode;
             if (mode === 'simple') {
-                simpleBtn.className = 'px-4 py-2 rounded-md bg-blue-500 text-white font-medium';
-                detailedBtn.className = 'px-4 py-2 rounded-md text-blue-500 font-medium hover:bg-blue-50';
-                displayInfo.textContent = 'Visualizzazione semplice';
+                simpleBtn.className = 'px-4 py-2 rounded-md bg-yellow-500 text-white font-medium';
+                detailedBtn.className = 'px-4 py-2 rounded-md text-yellow-600 font-medium hover:bg-yellow-50';
+                displayInfo.textContent = 'Visualizzazione semplice con pronuncia';
             } else {
-                detailedBtn.className = 'px-4 py-2 rounded-md bg-blue-500 text-white font-medium';
-                simpleBtn.className = 'px-4 py-2 rounded-md text-blue-500 font-medium hover:bg-blue-50';
-                displayInfo.textContent = 'Visualizzazione dettagliata con pronuncia';
+                detailedBtn.className = 'px-4 py-2 rounded-md bg-yellow-500 text-white font-medium';
+                simpleBtn.className = 'px-4 py-2 rounded-md text-yellow-600 font-medium hover:bg-yellow-50';
+                displayInfo.textContent = 'Visualizzazione dettagliata con informazioni complete';
             }
             renderCharacterGrid();
         }
@@ -351,36 +359,30 @@
         function switchPracticeMode(mode) {
             practiceMode = mode;
             // Reset buttons
-            recognitionBtn.className = 'px-3 py-2 rounded-md text-blue-500 font-medium hover:bg-blue-50 text-sm';
-            writingBtn.className = 'px-3 py-2 rounded-md text-blue-500 font-medium hover:bg-blue-50 text-sm';
-            casesBtn.className = 'px-3 py-2 rounded-md text-blue-500 font-medium hover:bg-blue-50 text-sm';
-            readingBtn.className = 'px-3 py-2 rounded-md text-blue-500 font-medium hover:bg-blue-50 text-sm';
+            recognitionBtn.className = 'px-3 py-2 rounded-md text-yellow-600 font-medium hover:bg-yellow-50 text-sm';
+            writingBtn.className = 'px-3 py-2 rounded-md text-yellow-600 font-medium hover:bg-yellow-50 text-sm';
+            meaningBtn.className = 'px-3 py-2 rounded-md text-yellow-600 font-medium hover:bg-yellow-50 text-sm';
             
             if (mode === 'recognition') {
-                recognitionBtn.className = 'px-3 py-2 rounded-md bg-blue-500 text-white font-medium text-sm';
+                recognitionBtn.className = 'px-3 py-2 rounded-md bg-yellow-500 text-white font-medium text-sm';
             } else if (mode === 'writing') {
-                writingBtn.className = 'px-3 py-2 rounded-md bg-blue-500 text-white font-medium text-sm';
-            } else if (mode === 'cases') {
-                casesBtn.className = 'px-3 py-2 rounded-md bg-blue-500 text-white font-medium text-sm';
-            } else if (mode === 'reading') {
-                readingBtn.className = 'px-3 py-2 rounded-md bg-blue-500 text-white font-medium text-sm';
+                writingBtn.className = 'px-3 py-2 rounded-md bg-yellow-500 text-white font-medium text-sm';
+            } else if (mode === 'meaning') {
+                meaningBtn.className = 'px-3 py-2 rounded-md bg-yellow-500 text-white font-medium text-sm';
             }
             startPractice();
         }
 
-        function switchPracticeScript(script) {
-            practiceScript = script;
+        function switchPracticeContent(content) {
+            practiceContent = content;
             // Reset buttons
-            practiceConsonantsBtn.className = 'px-3 py-2 rounded-md text-red-500 font-medium hover:bg-red-50 text-sm';
-            practiceVowelsBtn.className = 'px-3 py-2 rounded-md text-red-500 font-medium hover:bg-red-50 text-sm';
-            practiceSyllablesBtn.className = 'px-3 py-2 rounded-md text-red-500 font-medium hover:bg-red-50 text-sm';
+            practiceLettersBtn.className = 'px-3 py-2 rounded-md text-red-500 font-medium hover:bg-red-50 text-sm';
+            practiceWordsBtn.className = 'px-3 py-2 rounded-md text-red-500 font-medium hover:bg-red-50 text-sm';
             
-            if (script === 'consonants') {
-                practiceConsonantsBtn.className = 'px-3 py-2 rounded-md bg-red-500 text-white font-medium text-sm';
-            } else if (script === 'vowels') {
-                practiceVowelsBtn.className = 'px-3 py-2 rounded-md bg-red-500 text-white font-medium text-sm';
-            } else if (script === 'syllables') {
-                practiceSyllablesBtn.className = 'px-3 py-2 rounded-md bg-red-500 text-white font-medium text-sm';
+            if (content === 'letters') {
+                practiceLettersBtn.className = 'px-3 py-2 rounded-md bg-red-500 text-white font-medium text-sm';
+            } else if (content === 'words') {
+                practiceWordsBtn.className = 'px-3 py-2 rounded-md bg-red-500 text-white font-medium text-sm';
             }
             updateExerciseInfo();
             startPractice();
@@ -390,83 +392,55 @@
             characterGrid.innerHTML = '';
             let data;
             
-            if (currentScript === 'consonants') {
-                data = consonants;
-            } else if (currentScript === 'vowels') {
-                data = vowels;
-            } else if (currentScript === 'syllables') {
-                data = syllables;
+            if (currentContent === 'letters') {
+                data = letters;
+            } else if (currentContent === 'words') {
+                data = words;
             }
             
             Object.entries(data).forEach(([char, info]) => {
                 const card = document.createElement('div');
+                card.className = 'character-card rounded-xl p-6 text-center transition-all duration-300 cursor-pointer flex flex-col justify-between';
                 
                 if (displayMode === 'simple') {
-                    card.className = 'bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow cursor-pointer card-flip min-h-[130px] flex flex-col justify-center';
-                    
-                    if (currentScript === 'syllables') {
+                    if (currentContent === 'words') {
                         card.innerHTML = `
-                            <div class="card-front">
-                                <div class="text-6xl mb-3 russian-font font-bold text-black">${char}</div>
-                                <div class="text-lg font-semibold text-gray-700 bg-gray-100 px-3 py-1 rounded-full">${info.transliteration}</div>
-                            </div>
-                            <div class="card-back bg-blue-50 rounded-lg p-6 flex flex-col justify-center">
-                                <div class="text-3xl mb-3 text-blue-700 font-bold">${info.transliteration}</div>
-                                <div class="text-5xl russian-font font-bold text-blue-600">${char}</div>
-                                <div class="text-sm text-blue-600 mt-2">${info.components}</div>
+                            <div class="flex flex-col items-center space-y-4">
+                                <div class="text-5xl russian-font font-bold text-gray-800">${char}</div>
+                                <div class="pronunciation-badge">${info.transliteration}</div>
+                                <div class="meaning-badge">${info.meaning}</div>
                             </div>
                         `;
                     } else {
                         card.innerHTML = `
-                            <div class="card-front">
-                                <div class="text-6xl mb-3 russian-font font-bold text-black">${char}</div>
-                                <div class="text-lg font-semibold text-gray-700 bg-gray-100 px-3 py-1 rounded-full">${info.transliteration}</div>
-                            </div>
-                            <div class="card-back bg-blue-50 rounded-lg p-6 flex flex-col justify-center">
-                                <div class="text-3xl mb-3 text-blue-700 font-bold">${info.transliteration}</div>
-                                <div class="text-5xl russian-font font-bold text-blue-600">${char}</div>
-                                <div class="text-sm text-blue-600 mt-2">${info.lower}</div>
+                            <div class="flex flex-col items-center space-y-4">
+                                <div class="text-6xl russian-font font-bold text-gray-800">${char}</div>
+                                <div class="pronunciation-badge">${info.transliteration}</div>
+                                <div class="type-badge">${info.type}</div>
                             </div>
                         `;
                     }
                 } else {
-                    card.className = 'bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition-shadow cursor-pointer card-flip min-h-[160px] flex flex-col justify-center';
-                    
-                    if (currentScript === 'syllables') {
+                    if (currentContent === 'words') {
                         card.innerHTML = `
-                            <div class="card-front">
-                                <div class="text-5xl mb-2 russian-font font-bold text-black">${char}</div>
-                                <div class="text-sm font-semibold text-gray-700 bg-gray-100 px-2 py-1 rounded-full mb-2">${info.transliteration}</div>
-                                <div class="text-xs text-gray-600">${info.components}</div>
-                            </div>
-                            <div class="card-back bg-blue-50 rounded-lg p-4 flex flex-col justify-center">
-                                <div class="text-2xl mb-2 text-blue-700 font-bold">${info.transliteration}</div>
-                                <div class="text-4xl russian-font font-bold text-blue-600 mb-2">${char}</div>
-                                <div class="text-sm text-blue-600">${info.components}</div>
+                            <div class="flex flex-col items-center space-y-3">
+                                <div class="text-4xl russian-font font-bold text-gray-800">${char}</div>
+                                <div class="pronunciation-badge">${info.transliteration}</div>
+                                <div class="meaning-badge">${info.meaning}</div>
+                                <div class="type-badge">${info.category}</div>
                             </div>
                         `;
                     } else {
                         card.innerHTML = `
-                            <div class="card-front">
-                                <div class="text-5xl mb-2 russian-font font-bold text-black">${char}</div>
-                                <div class="text-sm font-semibold text-gray-700 bg-gray-100 px-2 py-1 rounded-full mb-2">${info.transliteration}</div>
-                                <div class="text-xs text-gray-600">
-                                    <div>Minuscola: ${info.lower}</div>
-                                    <div class="mt-1">${info.sound}</div>
-                                </div>
-                            </div>
-                            <div class="card-back bg-blue-50 rounded-lg p-4 flex flex-col justify-center">
-                                <div class="text-2xl mb-2 text-blue-700 font-bold">${info.transliteration}</div>
-                                <div class="text-4xl russian-font font-bold text-blue-600 mb-2">${char}</div>
-                                <div class="text-sm text-blue-600">${info.lower}</div>
+                            <div class="flex flex-col items-center space-y-3">
+                                <div class="text-5xl russian-font font-bold text-gray-800">${char}</div>
+                                <div class="pronunciation-badge">${info.transliteration}</div>
+                                <div class="bg-gradient-to-r from-blue-400 to-purple-400 text-white px-3 py-1 rounded-full text-xs font-bold">${info.pronunciation}</div>
+                                <div class="type-badge">${info.type}</div>
                             </div>
                         `;
                     }
                 }
-                
-                card.addEventListener('click', () => {
-                    card.classList.toggle('flipped');
-                });
                 
                 characterGrid.appendChild(card);
             });
@@ -482,12 +456,10 @@
 
         function nextQuestion() {
             let data;
-            if (practiceScript === 'consonants') {
-                data = consonants;
-            } else if (practiceScript === 'vowels') {
-                data = vowels;
-            } else if (practiceScript === 'syllables') {
-                data = syllables;
+            if (practiceContent === 'letters') {
+                data = letters;
+            } else if (practiceContent === 'words') {
+                data = words;
             }
             
             const charArray = Object.entries(data);
@@ -504,32 +476,32 @@
                 setupRecognitionQuestion();
             } else if (practiceMode === 'writing') {
                 setupWritingQuestion();
-            } else if (practiceMode === 'cases') {
-                setupCasesQuestion();
-            } else if (practiceMode === 'reading') {
-                setupReadingQuestion();
+            } else if (practiceMode === 'meaning') {
+                setupMeaningQuestion();
             }
         }
 
         function setupRecognitionQuestion() {
             questionText.textContent = currentQuestion.char;
-            questionPrompt.textContent = 'Come si pronuncia questa lettera?';
+            
+            if (practiceContent === 'letters') {
+                questionPrompt.textContent = 'Come si pronuncia questa lettera?';
+            } else {
+                questionPrompt.textContent = 'Come si pronuncia questa parola?';
+            }
+            
             answerOptions.classList.remove('hidden');
             writingInput.classList.add('hidden');
             nextBtn.classList.remove('hidden');
             checkBtn.classList.add('hidden');
 
-            let correctAnswer, allAnswers;
-            if (practiceScript === 'syllables') {
-                correctAnswer = currentQuestion.data.transliteration;
-                allAnswers = Object.values(syllables).map(s => s.transliteration);
+            let correctAnswer = currentQuestion.data.transliteration;
+            let allAnswers;
+            
+            if (practiceContent === 'letters') {
+                allAnswers = Object.values(letters).map(l => l.transliteration);
             } else {
-                correctAnswer = currentQuestion.data.transliteration;
-                if (practiceScript === 'consonants') {
-                    allAnswers = Object.values(consonants).map(c => c.transliteration);
-                } else {
-                    allAnswers = Object.values(vowels).map(v => v.transliteration);
-                }
+                allAnswers = Object.values(words).map(w => w.transliteration);
             }
 
             const options = [correctAnswer];
@@ -545,7 +517,7 @@
             answerOptions.innerHTML = '';
             options.forEach(option => {
                 const button = document.createElement('button');
-                button.className = 'p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors font-medium';
+                button.className = 'p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors font-medium text-lg';
                 button.textContent = option;
                 button.addEventListener('click', () => checkRecognitionAnswer(option, correctAnswer));
                 answerOptions.appendChild(button);
@@ -554,7 +526,13 @@
 
         function setupWritingQuestion() {
             questionText.textContent = currentQuestion.char;
-            questionPrompt.textContent = 'Scrivi la traslitterazione di questa lettera:';
+            
+            if (practiceContent === 'letters') {
+                questionPrompt.textContent = 'Scrivi la traslitterazione di questa lettera:';
+            } else {
+                questionPrompt.textContent = 'Scrivi la traslitterazione di questa parola:';
+            }
+            
             answerOptions.classList.add('hidden');
             writingInput.classList.remove('hidden');
             nextBtn.classList.add('hidden');
@@ -563,95 +541,40 @@
             writingAnswer.focus();
         }
 
-        function setupCasesQuestion() {
-            if (practiceScript === 'syllables') {
-                setupRecognitionQuestion();
-                return;
-            }
-            
-            const isUpperToLower = Math.random() > 0.5;
-            let questionChar, correctAnswer, allAnswers;
-            
-            if (isUpperToLower) {
-                questionChar = currentQuestion.char;
-                correctAnswer = currentQuestion.data.lower;
-                questionPrompt.textContent = 'Qual è la minuscola di questa lettera?';
-                if (practiceScript === 'consonants') {
-                    allAnswers = Object.values(consonants).map(c => c.lower);
-                } else {
-                    allAnswers = Object.values(vowels).map(v => v.lower);
+        function setupMeaningQuestion() {
+            if (practiceContent === 'words' && currentQuestion.data.meaning) {
+                questionText.textContent = currentQuestion.char;
+                questionPrompt.textContent = 'Qual è il significato di questa parola?';
+                
+                const correctAnswer = currentQuestion.data.meaning;
+                const allAnswers = Object.values(words).map(w => w.meaning);
+                
+                const options = [correctAnswer];
+                while (options.length < 4) {
+                    const randomAnswer = allAnswers[Math.floor(Math.random() * allAnswers.length)];
+                    if (!options.includes(randomAnswer)) {
+                        options.push(randomAnswer);
+                    }
                 }
+                
+                options.sort(() => Math.random() - 0.5);
+                
+                answerOptions.classList.remove('hidden');
+                writingInput.classList.add('hidden');
+                nextBtn.classList.remove('hidden');
+                checkBtn.classList.add('hidden');
+                
+                answerOptions.innerHTML = '';
+                options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors font-medium text-sm';
+                    button.textContent = option;
+                    button.addEventListener('click', () => checkRecognitionAnswer(option, correctAnswer));
+                    answerOptions.appendChild(button);
+                });
             } else {
-                questionChar = currentQuestion.data.lower;
-                correctAnswer = currentQuestion.char;
-                questionPrompt.textContent = 'Qual è la maiuscola di questa lettera?';
-                if (practiceScript === 'consonants') {
-                    allAnswers = Object.keys(consonants);
-                } else {
-                    allAnswers = Object.keys(vowels);
-                }
-            }
-            
-            questionText.textContent = questionChar;
-            answerOptions.classList.remove('hidden');
-            writingInput.classList.add('hidden');
-            nextBtn.classList.remove('hidden');
-            checkBtn.classList.add('hidden');
-
-            const options = [correctAnswer];
-            while (options.length < 4) {
-                const randomAnswer = allAnswers[Math.floor(Math.random() * allAnswers.length)];
-                if (!options.includes(randomAnswer)) {
-                    options.push(randomAnswer);
-                }
-            }
-            
-            options.sort(() => Math.random() - 0.5);
-            
-            answerOptions.innerHTML = '';
-            options.forEach(option => {
-                const button = document.createElement('button');
-                button.className = 'p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors font-medium russian-font text-xl';
-                button.textContent = option;
-                button.addEventListener('click', () => checkRecognitionAnswer(option, correctAnswer));
-                answerOptions.appendChild(button);
-            });
-        }
-
-        function setupReadingQuestion() {
-            if (practiceScript !== 'syllables') {
                 setupRecognitionQuestion();
-                return;
             }
-            
-            questionText.textContent = currentQuestion.char;
-            questionPrompt.textContent = 'Come si legge questa sillaba?';
-            answerOptions.classList.remove('hidden');
-            writingInput.classList.add('hidden');
-            nextBtn.classList.remove('hidden');
-            checkBtn.classList.add('hidden');
-
-            const correctAnswer = currentQuestion.data.transliteration;
-            const allAnswers = Object.values(syllables).map(s => s.transliteration);
-
-            const options = [correctAnswer];
-            while (options.length < 4) {
-                const randomAnswer = allAnswers[Math.floor(Math.random() * allAnswers.length)];
-                if (!options.includes(randomAnswer)) {
-                    options.push(randomAnswer);
-                }
-            }
-            
-            options.sort(() => Math.random() - 0.5);
-            
-            answerOptions.innerHTML = '';
-            options.forEach(option => {
-                const button = document.createElement('button');
-                button.className = 'p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors font-medium';
-                button.textContent = option;
-                button.addEventListener('click', () => checkRecognitionAnswer(option, correctAnswer));
-                answerOptions.appendChild(button);
-            });
         }
 
         function checkRecognitionAnswer(selected, correct) {
@@ -682,12 +605,7 @@
             const userAnswer = writingAnswer.value.toLowerCase().trim();
             total++;
             
-            let correctAnswer;
-            if (practiceScript === 'syllables') {
-                correctAnswer = currentQuestion.data.transliteration.toLowerCase();
-            } else {
-                correctAnswer = currentQuestion.data.transliteration.toLowerCase();
-            }
+            const correctAnswer = currentQuestion.data.transliteration.toLowerCase();
             
             if (userAnswer === correctAnswer) {
                 score++;
@@ -703,7 +621,7 @@
 
         function showFeedback(message, className) {
             feedbackText.textContent = message;
-            feedback.className = `mb-6 p-4 rounded-lg ${className}`;
+            feedback.className = `mb-8 p-4 rounded-lg ${className}`;
             feedback.classList.remove('hidden');
         }
 
@@ -714,25 +632,22 @@
 
         function updateExerciseInfo() {
             let count;
-            let scriptName;
+            let contentName;
             
-            if (practiceScript === 'consonants') {
-                count = Object.keys(consonants).length;
-                scriptName = 'Consonanti';
-            } else if (practiceScript === 'vowels') {
-                count = Object.keys(vowels).length;
-                scriptName = 'Vocali';
-            } else if (practiceScript === 'syllables') {
-                count = Object.keys(syllables).length;
-                scriptName = 'Sillabe';
+            if (practiceContent === 'letters') {
+                count = Object.keys(letters).length;
+                contentName = 'Lettere';
+            } else if (practiceContent === 'words') {
+                count = Object.keys(words).length;
+                contentName = 'Parole';
             }
             
-            exerciseInfo.textContent = `${scriptName}: ${count} lettere disponibili`;
+            exerciseInfo.textContent = `${contentName}: ${count} elementi disponibili`;
         }
 
         // Initialize
         renderCharacterGrid();
         updateExerciseInfo();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'970ae43e74a1edaf',t:'MTc1NTQ1MTc0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'970c8beb06dae192',t:'MTc1NTQ2OTA5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
